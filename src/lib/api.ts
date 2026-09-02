@@ -326,6 +326,15 @@ class ApiClient {
       method: 'DELETE',
     });
   }
+  async loginWithGoogle(credential: string): Promise<{ user: User; token: string }> {
+  const res = await this.request<{ user: User; token: string }>('/api/auth/google', {
+    method: 'POST',
+    body: JSON.stringify({ credential }),
+  });
+
+  this.setToken(res.token);
+  return res;
+}
 
   // Notifications
   async getNotifications(): Promise<NotificationItem[]> {
