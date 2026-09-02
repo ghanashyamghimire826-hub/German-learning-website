@@ -1,0 +1,6 @@
+{
+  "name": "DeutschMeister - German Learning A1 to B2",
+  "description": "Learn German from A1 to B2 with structured lessons, grammar, vocabulary, practice quizzes, exam mode, spaced repetition flashcards, and progress tracking.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
