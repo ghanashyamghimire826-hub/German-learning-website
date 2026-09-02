@@ -43,7 +43,13 @@ export const LessonsView: React.FC<LessonsViewProps> = ({ onNavigate, selectedLe
       setLoading(true);
       try {
         const list = await api.getLessons(activeLevel);
-        setLessons(list);
+        setLessons(list.map((lesson: any) => ({
+          ...lesson,
+          unit: lesson.unit ?? lesson.unitNumber,
+          order: lesson.order ?? lesson.lessonNumber,
+          objectives: lesson.objectives ?? [],
+          content: lesson.content ?? lesson.sections ?? [],
+        })));
 
         if (selectedLessonSlug) {
           const found = list.find((l) => l.slug === selectedLessonSlug);
