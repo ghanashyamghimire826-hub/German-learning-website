@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { CEFRLevel, LearningGoal } from '../../types';
 import { X, Sparkles, Mail, Lock, User as UserIcon, CheckCircle2, AlertCircle, ArrowRight, Shield } from 'lucide-react';
@@ -16,7 +16,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   onSuccess,
 }) => {
-  const { login, register } = useAuth();
+  const { login, loginWithGoogle, register } = useAuth();
   const [mode, setMode] = useState<'login' | 'register' | 'forgot'>(initialMode);
 
   // Form fields
@@ -31,7 +31,65 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  
+const googleButtonRef = useRef<HTMLDivElement>(null);
+  
+Syemon Ghimire
+23:08 (0 minutes ago)
+to me
 
+useEffect(() => {
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+  if (!clientId || !googleButtonRef.current) return;
+
+  const renderGoogleButton = () => {
+    const google = (window as any).google;
+
+    if (!google) return;
+
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: async (response: any) => {
+        setLoading(true);
+        setErrorMessage('');
+
+        try {
+          await loginWithGoogle(response.credential);
+          onSuccess?.();
+          onClose();
+        } catch (err: any) {
+          setErrorMessage(err.message || 'Google login failed');
+        } finally {
+          setLoading(false);
+        }
+      },
+    });
+
+    googleButtonRef.current.innerHTML = '';
+
+    google.accounts.id.renderButton(googleButtonRef.current, {
+      theme: 'outline',
+      size: 'large',
+      text: 'continue_with',
+      width: 320,
+    });
+  };
+
+  if ((window as any).google) {
+    renderGoogleButton();
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = 'https://accounts.google.com/gsi/client';
+  script.async = true;
+  script.defer = true;
+  script.onload = renderGoogleButton;
+  document.head.appendChild(script);
+}, [loginWithGoogle, onSuccess, onClose]);
+
+  
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -261,6 +319,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               )}
             </button>
           </form>
+          </form>
+
+{mode !== 'forgot' && (
+  <div className="mt-4 flex justify-center">
+    <div ref={googleButtonRef}></div>
+  </div>
+)}
+
+{/* Quick Demo Logins for effortless testing */}
 
           {/* Quick Demo Logins for effortless testing */}
           <div className="mt-5 pt-4 border-t border-stone-100">
