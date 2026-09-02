@@ -34,7 +34,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   
 const googleButtonRef = useRef<HTMLDivElement>(null);
   
-Syemon Ghimire
 23:08 (0 minutes ago)
 to me
 
