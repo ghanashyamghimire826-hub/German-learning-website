@@ -116,6 +116,70 @@ async function startServer() {
       token,
     });
   });
+app.post('/api/auth/google', async (req: Request, res: Response) => {
+    const { credential } = req.body;
+
+    if (!credential) {
+      return res.status(400).json({ error: 'Google credential is required' });
+    }
+
+    try {
+      const googleUser = await verifyGoogleIdToken(credential);
+      const googleId = googleUser.sub!;
+      const email = googleUser.email!.toLowerCase();
+
+      let user = db.findUserByEmail(email);
+
+      if (!user) {
+        const passwordHash = hashPassword(
+          `${googleId}:${Date.now()}:${Math.random()}`
+        );
+
+        const newUser = {
+          id: `usr_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+          name: googleUser.name || googleUser.given_name || email.split('@')[0],
+          email,
+          role: 'user' as const,
+          level: 'A1' as const,
+          goal: 'pass_exam' as const,
+          dailyGoalMinutes: 20,
+          dailyGoalQuestions: 15,
+          xp: 100,
+          streak: 1,
+          lastActiveDate: new Date().toISOString().split('T')[0],
+          isPremium: false,
+          hideFromLeaderboard: false,
+          createdAt: new Date().toISOString(),
+          status: 'active' as const,
+          passwordHash,
+          googleId,
+        };
+
+        user = db.createUser(newUser);
+      } else {
+        if (user.status === 'suspended') {
+          return res.status(403).json({
+            error: 'This account has been suspended. Please contact support.',
+          });
+        }
+
+        db.updateUser(user.id, { googleId } as any);
+        user = db.findUserById(user.id)!;
+      }
+
+      const token = generateToken(user);
+      const { passwordHash, ...safeUser } = user;
+
+      res.json({
+        message: 'Google login successful',
+        user: safeUser,
+        token,
+      });
+    } catch (err: any) {
+      console.error('Google authentication failed:', err);
+      res.status(401).json({ error: 'Google authentication failed' });
+    }
+  });
 
   app.get('/api/auth/me', authMiddleware, (req: AuthRequest, res: Response) => {
     const user = db.findUserById(req.user!.id);
