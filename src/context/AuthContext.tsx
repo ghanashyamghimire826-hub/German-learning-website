@@ -9,6 +9,8 @@ interface AuthContextType {
   isAdmin: boolean;
   isPremium: boolean;
   login: (credentials: any) => Promise<void>;
+  loginWithGoogle: (credential: string) =>
+  Promise<void>;
   register: (data: any) => Promise<void>;
   logout: () => void;
   updateUser: (updated: Partial<User>) => Promise<void>;
@@ -54,7 +56,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setIsLoading(false);
     }
   };
-
+const loginWithGoogle = async (credential: string) => {
+    setIsLoading(true);
+    try {
+      const res = await api.loginWithGoogle(credential);
+      setUser(res.user);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const register = async (data: any) => {
     setIsLoading(true);
     try {
@@ -89,6 +99,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAdmin: user?.role === 'admin',
         isPremium: !!user?.isPremium || user?.role === 'admin',
         login,
+        loginWithGoogle,
         register,
         logout,
         updateUser,
