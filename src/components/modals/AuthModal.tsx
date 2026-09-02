@@ -315,7 +315,6 @@ useEffect(() => {
               )}
             </button>
           </form>
-          </form>
 
 {mode !== 'forgot' && (
   <div className="mt-4 flex justify-center">
