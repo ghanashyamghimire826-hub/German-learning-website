@@ -90,3 +90,25 @@ export function premiumOnly(req: AuthRequest, res: Response, next: NextFunction)
   }
   next();
 }
+export async function verifyGoogleIdToken(idToken: string) {
+  const clientId = process.env.VITE_GOOGLE_CLIENT_ID;
+
+  if (!clientId) {
+    throw new Error('Google client ID is not configured');
+  }
+
+  const client = new OAuth2Client(clientId);
+
+  const ticket = await client.verifyIdToken({
+    idToken,
+    audience: clientId,
+  });
+
+  const payload = ticket.getPayload();
+
+  if (!payload?.sub || !payload.email || payload.email_verified !== true) {
+    throw new Error('Invalid Google account information');
+  }
+
+  return payload;
+}
