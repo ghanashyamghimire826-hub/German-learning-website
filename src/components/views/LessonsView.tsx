@@ -48,7 +48,22 @@ export const LessonsView: React.FC<LessonsViewProps> = ({ onNavigate, selectedLe
           unit: lesson.unit ?? lesson.unitNumber,
           order: lesson.order ?? lesson.lessonNumber,
           objectives: lesson.objectives ?? [],
-          content: lesson.content ?? lesson.sections ?? [],
+          content: lesson.content ?? (
+            Array.isArray(lesson.sections)
+            ? lesson.sections.map((section: any) => [
+              section.title,
+              section.content,
+              ...(section.germanExamples ?? []).map(
+                (ex: any) => '${ex.german} - ${ex.english}
+
+                ),
+              ...(section.tips ?? []).map((tip: string) =>
+          'Tip: ${tip}'),
+              ].filter(Boolean).join('\n\n')
+              :"
+            ),
+                
+  
         })));
 
         if (selectedLessonSlug) {
