@@ -33,9 +33,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [successMessage, setSuccessMessage] = useState('');
   
 const googleButtonRef = useRef<HTMLDivElement>(null);
-  
-23:08 (0 minutes ago)
-to me
 
 useEffect(() => {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
