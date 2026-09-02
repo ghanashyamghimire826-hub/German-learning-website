@@ -54,11 +54,12 @@ export const LessonsView: React.FC<LessonsViewProps> = ({ onNavigate, selectedLe
               section.title,
               section.content,
               ...(section.germanExamples ?? []).map(
-                (ex: any) => '${ex.german} - ${ex.english}
+                (ex: any) => ex.german + " - " + ex. english
 
                 ),
               ...(section.tips ?? []).map((tip: string) =>
-          'Tip: ${tip}'),
+                "Tip: " + tip
+          
               ].filter(Boolean).join('\n\n')
               :"
             ),
