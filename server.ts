@@ -7,7 +7,7 @@ import {
   generateToken,
   comparePassword,
   hashPassword,
-  verifyGoogleldToken,
+  verifyGoogleLdToken,
   authMiddleware,
   optionalAuthMiddleware,
   adminOnly,
