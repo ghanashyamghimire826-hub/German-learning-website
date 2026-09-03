@@ -7,7 +7,7 @@ import {
   generateToken,
   comparePassword,
   hashPassword,
-  verifyGoogleldToken,
+  verifyGoogleIdToken,
   authMiddleware,
   optionalAuthMiddleware,
   adminOnly,
@@ -124,7 +124,7 @@ app.post('/api/auth/google', async (req: Request, res: Response) => {
     }
 
     try {
-      const googleUser = await verifyGoogleldToken(credential);
+      const googleUser = await verifyGoogleIdToken(credential);
       const googleId = googleUser.sub!;
       const email = googleUser.email!.toLowerCase();
 
