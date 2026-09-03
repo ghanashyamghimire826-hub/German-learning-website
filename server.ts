@@ -124,7 +124,7 @@ app.post('/api/auth/google', async (req: Request, res: Response) => {
     }
 
     try {
-      const googleUser = await verifyGoogleIdToken(credential);
+      const googleUser = await verifyGoogleldToken(credential);
       const googleId = googleUser.sub!;
       const email = googleUser.email!.toLowerCase();
 
