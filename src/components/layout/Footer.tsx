@@ -13,11 +13,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-stone-900 font-bold shadow-md shadow-amber-500/20">
-                <span className="font-serif text-lg font-extrabold">VE</span>
-              </div>
+              <img src="/logo.jpeg" alt="VielErfolg" className="h-10 w-10 rounded-full object-cover" />
               <span className="font-serif font-bold text-xl text-white tracking-tight">
-                Deutsch<span className="text-amber-400">VielErfolg</span>
+                <span className="text-amber-400">VielErfolg</span>
               </span>
             </div>
             <p className="text-sm text-stone-400 max-w-sm leading-relaxed">
