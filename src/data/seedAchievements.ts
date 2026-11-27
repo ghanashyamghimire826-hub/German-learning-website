@@ -70,7 +70,7 @@ export const INITIAL_ACHIEVEMENTS: Achievement[] = [
   {
     id: 'ach_vocab_1000',
     code: '1000_words',
-    title: 'Wortschatz Meister',
+    title: 'Wortschatz VielErfolg',
     description: 'Attain active mastery over 1,000 German vocabulary items.',
     iconName: 'Award',
     category: 'vocabulary',
@@ -114,7 +114,7 @@ export const INITIAL_ACHIEVEMENTS: Achievement[] = [
   {
     id: 'ach_grammar_master',
     code: 'grammar_master',
-    title: 'Grammatik Meister',
+    title: 'Grammatik VielErfolg',
     description: 'Complete all grammar chapters and their checkpoint mini-quizzes.',
     iconName: 'GraduationCap',
     category: 'mastery',

@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <span className="font-serif text-lg font-extrabold">DM</span>
               </div>
               <span className="font-serif font-bold text-xl text-white tracking-tight">
-                Deutsch<span className="text-amber-400">Meister</span>
+                Deutsch<span className="text-amber-400">VielErfolg</span>
               </span>
             </div>
             <p className="text-sm text-stone-400 max-w-sm leading-relaxed">

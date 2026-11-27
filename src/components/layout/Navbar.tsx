@@ -85,7 +85,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenA
               </div>
               <div className="flex flex-col">
                 <span className="font-serif font-bold text-lg tracking-tight text-stone-900 leading-tight">
-                  Deutsch<span className="text-amber-600">Meister</span>
+                  Deutsch<span className="text-amber-600">VielErfolg</span>
                 </span>
                 <span className="text-[10px] tracking-wider text-stone-700 font-bold uppercase">
                   Learn • Practice • Master
