@@ -79,12 +79,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenA
               id="brand_logo_btn"
               onClick={() => onNavigate(isAuthenticated ? 'dashboard' : 'landing')}
               className="flex items-center gap-2.5 text-left group focus:outline-none"
-            >
-              <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-stone-900 font-bold shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-                <span className="font-serif text-xl tracking-tighter">VE</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-lg tracking-tight text-stone-900 leading-tight">
+            ><img src="/logo.jpeg" alt="VielErfolg" className="h-12 w-12 rounded-full object-cover" />
+            <div className="flex flex-col">
+                              <span className="font-serif font-bold text-lg tracking-tight text-stone-900 leading-tight">
                   <span className="text-amber-600">VielErfolg</span>
                 </span>
                 <span className="text-[10px] tracking-wider text-stone-700 font-bold uppercase">
