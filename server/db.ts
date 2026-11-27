@@ -95,8 +95,8 @@ class DatabaseManager {
 
     const defaultAdmin: User & { passwordHash: string } = {
       id: 'usr_admin_01',
-      name: 'DeutschMeister Admin',
-      email: process.env.ADMIN_EMAIL || 'admin@deutschmeister.de',
+      name: 'VielErfolg Admin',
+      email: process.env.ADMIN_EMAIL || 'admin@VielErfolg.de',
       role: 'admin',
       level: 'B2',
       goal: 'work',
@@ -115,7 +115,7 @@ class DatabaseManager {
     const demoUser: User & { passwordHash: string } = {
       id: 'usr_demo_01',
       name: 'Alex Neumann',
-      email: 'demo@deutschmeister.de',
+      email: 'demo@VielErfolg.de',
       role: 'user',
       level: 'A2',
       goal: 'pass_exam',
@@ -150,7 +150,7 @@ class DatabaseManager {
         id: 'notif_welcome',
         userId: 'usr_demo_01',
         type: 'system',
-        title: 'Willkommen bei DeutschMeister!',
+        title: 'Willkommen bei VielErfolg!',
         message: 'Start your daily streak with today’s challenge and explore structured A1–B2 lessons.',
         read: false,
         createdAt: new Date().toISOString(),

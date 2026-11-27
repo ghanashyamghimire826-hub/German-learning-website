@@ -125,7 +125,7 @@ export const AdminView: React.FC = () => {
           <AlertCircle className="w-10 h-10 text-rose-500 mx-auto" />
           <h2 className="font-bold text-lg text-stone-900">Administrator Access Required</h2>
           <p className="text-xs text-stone-500">
-            You must be logged in as an administrator to access the DeutschMeister management portal.
+            You must be logged in as an administrator to access the VielErfolg management portal.
           </p>
         </div>
       </div>
@@ -139,7 +139,7 @@ export const AdminView: React.FC = () => {
         <div className="bg-purple-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold border border-purple-500/30 mb-2">
-              <ShieldCheck className="w-3.5 h-3.5" /> DeutschMeister Management Portal
+              <ShieldCheck className="w-3.5 h-3.5" /> VielErfolg Management Portal
             </div>
             <h1 className="font-serif font-bold text-2xl sm:text-3xl text-white">
               Administrator Dashboard

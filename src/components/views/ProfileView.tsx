@@ -162,7 +162,7 @@ export const ProfileView: React.FC = () => {
             <div className="flex items-center gap-2">
               <CreditCard className="w-5 h-5 text-amber-500" />
               <h3 className="font-serif font-bold text-lg text-stone-900">
-                Membership: {isPremium ? 'DeutschMeister Premium' : 'Free Standard Plan'}
+                Membership: {isPremium ? 'VielErfolg Premium' : 'Free Standard Plan'}
               </h3>
             </div>
             <p className="text-xs text-stone-500 mt-1">

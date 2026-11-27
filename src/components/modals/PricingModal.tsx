@@ -72,7 +72,7 @@ export const PricingModal: React.FC = () => {
             <Sparkles className="w-3.5 h-3.5" /> Unlock Fluency & Exam Confidence
           </div>
           <h2 className="font-serif font-bold text-2xl sm:text-3xl text-white">
-            Upgrade to DeutschMeister <span className="text-amber-400">Premium</span>
+            Upgrade to VielErfolg <span className="text-amber-400">Premium</span>
           </h2>
           <p className="text-xs sm:text-sm text-stone-400 max-w-lg mx-auto mt-2">
             Get unlimited access to B1–B2 advanced lessons, Goethe/telc full mock exams, AI writing examiner, and priority spaced repetition flashcards.

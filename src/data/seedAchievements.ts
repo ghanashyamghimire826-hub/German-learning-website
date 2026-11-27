@@ -38,7 +38,7 @@ export const INITIAL_ACHIEVEMENTS: Achievement[] = [
     id: 'ach_q_1000',
     code: '1000_questions',
     title: 'Grandmaster of Drills',
-    description: 'Conquer 1,000 questions in DeutschMeister.',
+    description: 'Conquer 1,000 questions in VielErfolg.',
     iconName: 'Trophy',
     category: 'questions',
     xpReward: 500,

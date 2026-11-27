@@ -125,7 +125,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-400 gap-4">
           <div>
-            © {new Date().getFullYear()} DeutschMeister Inc. All rights reserved. Learn German. Practice Smart. Master Deutsch.
+            © {new Date().getFullYear()} VielErfolg Inc. All rights reserved. Learn German. Practice Smart. Master Deutsch.
           </div>
           <div className="flex items-center gap-1">
             Built with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> for global German learners.

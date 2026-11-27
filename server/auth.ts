@@ -6,7 +6,7 @@ import { OAuth2Client } from
 import { db } from './db';
 import { User } from '../src/types';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'deutschmeister_secure_jwt_secret_dev_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET || 'VielErfolg_secure_jwt_secret_dev_key_2026';
 
 export interface AuthRequest extends Request {
   user?: User;

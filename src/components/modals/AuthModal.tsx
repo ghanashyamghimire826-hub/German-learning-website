@@ -126,9 +126,9 @@ useEffect(() => {
     setErrorMessage('');
     try {
       if (role === 'admin') {
-        await login({ email: 'admin@deutschmeister.de', password: 'AdminPassword123!' });
+        await login({ email: 'admin@VielErfolg.de', password: 'AdminPassword123!' });
       } else {
-        await login({ email: 'demo@deutschmeister.de', password: 'DemoUser123!' });
+        await login({ email: 'demo@VielErfolg.de', password: 'DemoUser123!' });
       }
       onSuccess?.();
       onClose();
@@ -149,7 +149,7 @@ useEffect(() => {
               <div className="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-stone-900 font-bold text-xs">
                 DM
               </div>
-              <span className="font-serif font-bold text-base">DeutschMeister</span>
+              <span className="font-serif font-bold text-base">VielErfolg</span>
             </div>
             <button
               onClick={onClose}
@@ -159,7 +159,7 @@ useEffect(() => {
             </button>
           </div>
           <h3 className="font-serif font-bold text-xl mt-3">
-            {mode === 'login' && 'Welcome Back, DeutschMeister'}
+            {mode === 'login' && 'Welcome Back, VielErfolg'}
             {mode === 'register' && 'Create Your Student Account'}
             {mode === 'forgot' && 'Reset Password'}
           </h3>

@@ -44,7 +44,7 @@ In German, nouns have 3 genders: Masculine (*der*), Feminine (*die*), and Neuter
       'Position 2 Rule: Finite verb occupies Position 2 in declarative sentences',
       'Negation: Use kein for indefinite/no-article nouns; nicht for verbs/adjectives',
     ],
-    downloadableTitle: 'DeutschMeister-A1-Summary-Cheatsheet.pdf',
+    downloadableTitle: 'VielErfolg-A1-Summary-Cheatsheet.pdf',
   },
   {
     id: 'note_a2_two_way_prep',
@@ -78,7 +78,7 @@ In German, nouns have 3 genders: Masculine (*der*), Feminine (*die*), and Neuter
       'Wohin? (Motion) = AKKUSATIV (den / die / das / die)',
       'Dativ Plural always adds -n: den Freunden, den Kindern',
     ],
-    downloadableTitle: 'DeutschMeister-A2-Wechselpraepositionen.pdf',
+    downloadableTitle: 'VielErfolg-A2-Wechselpraepositionen.pdf',
   },
   {
     id: 'note_b1_connectors',
@@ -109,7 +109,7 @@ In German, nouns have 3 genders: Masculine (*der*), Feminine (*die*), and Neuter
       'Nebensatz connectors (weil, dass, obwohl, wenn, als) = Verb at the end',
       'Adverbial connectors (deshalb, trotzdem, außerdem) = Verb immediately after (Position 2)',
     ],
-    downloadableTitle: 'DeutschMeister-B1-Connectors-Guide.pdf',
+    downloadableTitle: 'VielErfolg-B1-Connectors-Guide.pdf',
   },
   {
     id: 'note_b2_redemittel',
@@ -151,6 +151,6 @@ In German, nouns have 3 genders: Masculine (*der*), Feminine (*die*), and Neuter
       'Combine NVV (eine Entscheidung treffen) with conditional Konjunktiv II',
       'Always structure essays: Einleitung -> Argumente pro/contra -> Eigene Meinung -> Fazit',
     ],
-    downloadableTitle: 'DeutschMeister-B2-Redemittel-Kompendium.pdf',
+    downloadableTitle: 'VielErfolg-B2-Redemittel-Kompendium.pdf',
   },
 ];

@@ -20,7 +20,7 @@ export async function explainGrammarConceptWithAI(
   }
 
   try {
-    const prompt = `You are "DeutschMeister AI Tutor", an expert German Goethe/telc accredited educator.
+    const prompt = `You are "VielErfolg AI Tutor", an expert German Goethe/telc accredited educator.
 Explain the German grammar topic "${topic}" clearly for a learner at CEFR level "${userLevel}".
 ${userQuestion ? `The student asks: "${userQuestion}"` : ''}
 
@@ -165,7 +165,7 @@ Evaluate the submission against official CEFR criteria. Return ONLY a valid JSON
 // ===================== ROBUST OFFLINE PEDAGOGICAL FALLBACKS =====================
 
 function generateFallbackExplanation(topic: string, level: string, question?: string): string {
-  return `### 🇩🇪 DeutschMeister Grammatik-Guide: ${topic} (${level})
+  return `### 🇩🇪 VielErfolg Grammatik-Guide: ${topic} (${level})
 
 **Core Grammatical Principle:**
 In German grammar, **${topic}** is a cornerstone topic for reaching ${level} proficiency. 

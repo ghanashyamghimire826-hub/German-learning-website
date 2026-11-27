@@ -65,7 +65,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onNavigate, onOpenAuth
               </h1>
 
               <p className="text-base sm:text-lg text-stone-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Step away from random apps. DeutschMeister delivers structured lessons, rigorous grammar drills, spaced repetition vocabulary, and real Goethe & telc exam simulations to get you fluent.
+                Step away from random apps. VielErfolg delivers structured lessons, rigorous grammar drills, spaced repetition vocabulary, and real Goethe & telc exam simulations to get you fluent.
               </p>
 
               {/* Action Buttons */}
@@ -380,7 +380,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ onNavigate, onOpenAuth
             Invest in Your German Future
           </h2>
           <p className="text-stone-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Free forever for core A1–A2 grammar & basic practice. Upgrade to DeutschMeister Premium for full B1–B2 curriculum, mock exams, and AI writing evaluation.
+            Free forever for core A1–A2 grammar & basic practice. Upgrade to VielErfolg Premium for full B1–B2 curriculum, mock exams, and AI writing evaluation.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">

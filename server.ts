@@ -33,7 +33,7 @@ async function startServer() {
   app.get('/api/health', (_req: Request, res: Response) => {
     res.json({
       status: 'ok',
-      service: 'DeutschMeister Full-Stack API',
+      service: 'VielErfolg Full-Stack API',
       time: new Date().toISOString(),
     });
   });
@@ -430,7 +430,7 @@ app.post('/api/auth/google', async (req: Request, res: Response) => {
     // Premium check for B1/B2 full mock exams
     if ((selectedLevel === 'B1' || selectedLevel === 'B2') && !req.user?.isPremium && req.user?.role !== 'admin') {
       return res.status(403).json({
-        error: 'Official B1 and B2 full mock examinations require a DeutschMeister Premium subscription.',
+        error: 'Official B1 and B2 full mock examinations require a VielErfolg Premium subscription.',
         requiresPremium: true,
       });
     }
@@ -605,7 +605,7 @@ app.post('/api/auth/google', async (req: Request, res: Response) => {
 
     res.json({
       success: true,
-      message: `Herzlichen Glückwunsch! Your DeutschMeister Premium access (${planName}) is now active.`,
+      message: `Herzlichen Glückwunsch! Your VielErfolg Premium access (${planName}) is now active.`,
       subscription: newSub,
       user: safeUser,
     });
@@ -730,7 +730,7 @@ app.post('/api/auth/google', async (req: Request, res: Response) => {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🇩🇪 DeutschMeister Server successfully listening on http://localhost:${PORT}`);
+    console.log(`🇩🇪 VielErfolg Server successfully listening on http://localhost:${PORT}`);
   });
 }
 

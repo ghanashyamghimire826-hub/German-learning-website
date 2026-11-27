@@ -825,7 +825,7 @@ export function generateFullVocabularyCatalog(): VocabularyItem[] {
         { word: 'Kabel', art: 'das', pl: 'die Kabel', en: 'cable / wire', exDe: 'Wo ist das Ladekabel für mein Smartphone?', exEn: 'Where is the charging cable for my smartphone?', diff: 'medium' },
         { word: 'Sicherheit', art: 'die', pl: 'die Sicherheiten', en: 'security / safety', exDe: 'Die digitale Sicherheit im Netz ist von höchster Priorität.', exEn: 'Digital safety on the web is of highest priority.', diff: 'medium' },
         { word: 'Herunterladen', art: 'das', pl: '—', en: 'downloading', exDe: 'Das Herunterladen der Datei dauert nur wenige Sekunden.', exEn: 'Downloading the file takes only a few seconds.', diff: 'medium' },
-        { word: 'Benutzeroberfläche', art: 'die', pl: 'die Benutzeroberflächen', en: 'user interface', exDe: 'Die Benutzeroberfläche von DeutschMeister ist intuitiv gestaltet.', exEn: 'The user interface of DeutschMeister is intuitively designed.', diff: 'medium' },
+        { word: 'Benutzeroberfläche', art: 'die', pl: 'die Benutzeroberflächen', en: 'user interface', exDe: 'Die Benutzeroberfläche von VielErfolg ist intuitiv gestaltet.', exEn: 'The user interface of VielErfolg is intuitively designed.', diff: 'medium' },
       ],
     },
     {

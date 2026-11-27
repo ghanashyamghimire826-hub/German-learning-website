@@ -1,6 +1,6 @@
 /**
  * Spaced Repetition System (SRS) Algorithm
- * Enhanced SM-2 implementation for DeutschMeister vocabulary flashcards.
+ * Enhanced SM-2 implementation for VielErfolg vocabulary flashcards.
  * Ratings:
  * 1 = 'Again' (Complete failure, reset interval to 1 day)
  * 2 = 'Hard'  (Struggled, interval * 1.2, ease reduced)

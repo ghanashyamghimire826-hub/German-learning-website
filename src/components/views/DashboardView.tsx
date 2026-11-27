@@ -70,7 +70,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onOpen
                 <Sparkles className="w-3.5 h-3.5" /> CEFR Level {selectedLevel} Active
               </div>
               <h1 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-white">
-                Willkommen zurück, <span className="text-amber-400">{user?.name || 'DeutschMeister'}</span>!
+                Willkommen zurück, <span className="text-amber-400">{user?.name || 'VielErfolg'}</span>!
               </h1>
               <p className="text-xs sm:text-sm text-stone-400 max-w-xl">
                 Keep your German momentum alive. Review today’s vocabulary, tackle the daily challenge, and complete your curriculum goals.
