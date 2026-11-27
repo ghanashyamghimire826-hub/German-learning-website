@@ -373,7 +373,7 @@ OR
         reason: 'In passive voice, always use "worden", not "geworden".',
       },
     ],
-    isPremium: true,
+    isPremium: false,
     practiceTopicKey: 'Passiv',
   },
   {
@@ -418,7 +418,7 @@ OR
         reason: 'Dativ plural relative pronoun is "denen" (governed by preposition "mit").',
       },
     ],
-    isPremium: true,
+    isPremium: false,
     practiceTopicKey: 'Relativsätze',
   },
   {
@@ -466,7 +466,7 @@ OR
         reason: 'Collocation error: In German you "hit/meet" a decision (treffen), never "make" (machen).',
       },
     ],
-    isPremium: true,
+    isPremium: false,
     practiceTopicKey: 'Nomen-Verb-Verbindungen',
   },
   {
@@ -515,7 +515,7 @@ OR
         reason: 'Participle attributes MUST be inflected with normal adjective endings (masculine nominative -e).',
       },
     ],
-    isPremium: true,
+    isPremium: false,
     practiceTopicKey: 'Partizipialattribute',
   },
 ];

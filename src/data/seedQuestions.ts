@@ -319,7 +319,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: 'Vorgangspassiv Präsens = werden (konjugiert) + Partizip II. "Das Krankenhaus wird eröffnet."',
     exampleSentence: 'Der Patient wird jetzt operiert.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b1_003',
@@ -334,7 +334,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: '"Der Kollege" ist maskulin. Nach der Präposition "mit" steht der Dativ: "mit dem".',
     exampleSentence: 'Die Frau, mit der ich gesprochen habe, ist die Chefin.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b1_004',
@@ -349,7 +349,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: 'Der zweiteilige Konnektor lautet "sowohl ... als auch" (kopulativ: beides trifft zu).',
     exampleSentence: 'Wir bieten sowohl Online-Kurse als auch Präsenzunterricht an.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b1_005',
@@ -364,7 +364,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: 'Bei trennbaren Verben schiebt sich das "zu" zwischen Vorsilbe und Verbstamm: "auf-zu-hören".',
     exampleSentence: 'Ich habe vor, morgen früh aufzustehen.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b1_006',
@@ -379,7 +379,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: '"Trotz" verlangt im Standarddeutsch den Genitiv: "des starken Regens".',
     exampleSentence: 'Wegen des schlechten Wetters wurde das Spiel abgesagt.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
 
   // ===================== B2 QUESTIONS =====================
@@ -396,7 +396,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: 'Die feste Nomen-Verb-Verbindung lautet "in Betracht ziehen" (= erwägen / berücksichtigen).',
     exampleSentence: 'Der Vorstand zieht eine Fusion in Betracht.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b2_002',
@@ -415,7 +415,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: 'Partizip II mit passiver Bedeutung ("beschlossen") + Adjektivendung Plural Nominativ nach bestimmtem Artikel (-en): "die beschlossenen Maßnahmen".',
     exampleSentence: 'Die neu entwickelten Technologien revolutionieren den Markt.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b2_003',
@@ -430,7 +430,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: '"sein + zu + Infinitiv" ist eine elegante Passiversatzform mit modaler Bedeutung (muss erledigt werden / can/must be done).',
     exampleSentence: 'Das Formular ist vollständig auszufüllen.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b2_004',
@@ -445,7 +445,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: 'In der formalen indirekten Rede (Plural) wird der Konjunktiv I verwendet: sie seien.',
     exampleSentence: 'Der Minister betonte, man habe rasch gehandelt.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b2_005',
@@ -464,7 +464,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: '"Auf die lange Bank schieben" bedeutet bildhaft, eine lästige Pflicht oder Entscheidung zu vertagen.',
     exampleSentence: 'Du solltest die Prüfungsvorbereitung nicht auf die lange Bank schieben.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
   {
     id: 'q_b2_006',
@@ -479,7 +479,7 @@ export const SEED_QUESTIONS: Question[] = [
     explanation: '"Dies führte dazu, dass..." ist ein hochfrequenter akademischer Satzbaustein zur Kausalverknüpfung auf B2/C1-Niveau.',
     exampleSentence: 'Die globale Nachfrage sank. Dies führte dazu, dass die Preise fielen.',
     xp: 10,
-    isPremium: true,
+    isPremium: false,
   },
 ];
 

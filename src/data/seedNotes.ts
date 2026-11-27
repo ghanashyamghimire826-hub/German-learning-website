@@ -103,7 +103,7 @@ In German, nouns have 3 genders: Masculine (*der*), Feminine (*die*), and Neuter
 *deshalb, darum, deswegen, trotzdem, außerdem, folglich, sonst*
 - *Example:* "Es regnete in Strömen. **Trotzdem gingen** wir im Wald spazieren."
 `,
-    isPremium: true,
+    isPremium: false,
     keyFormulas: [
       'ADUSO (aber, denn, und, sondern, oder) = Position 0 (Normal word order)',
       'Nebensatz connectors (weil, dass, obwohl, wenn, als) = Verb at the end',
@@ -145,7 +145,7 @@ In German, nouns have 3 genders: Masculine (*der*), Feminine (*die*), and Neuter
 - *Zusammenfassend lässt sich festhalten, dass...*
 - *Aus den genannten Gründen komme ich zu dem Schluss, dass...*
 `,
-    isPremium: true,
+    isPremium: false,
     keyFormulas: [
       'Redemittel boost telc/Goethe B2 oral & written exam scores significantly',
       'Combine NVV (eine Entscheidung treffen) with conditional Konjunktiv II',

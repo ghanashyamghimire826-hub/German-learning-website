@@ -240,56 +240,6 @@ class ApiClient {
     return this.request<LeaderboardEntry[]>('/api/leaderboard');
   }
 
-  // Subscription & Payments
-  async getPlans(): Promise<SubscriptionPlan[]> {
-    return this.request<SubscriptionPlan[]>('/api/subscription/plans');
-  }
-
-  async initiatePayment(data: {
-    planType: 'single' | 'all';
-    selectedLevel?: 'A1' | 'A2' | 'B1' | 'B2';
-    provider: 'esewa' | 'khalti';
-  }): Promise<any> {
-    return this.request('/api/payments/initiate', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  }
-
-  async verifyPayment(data: {
-    provider: 'esewa' | 'khalti';
-    orderId?: string;
-    pidx?: string;
-  }): Promise<{
-    success: boolean;
-    message: string;
-    subscription: any;
-    user: User;
-  }> {
-    return this.request('/api/payments/verify', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  }
-
-  async checkout(data: { planId: string; paymentMethod: string; currency?: string }): Promise<{
-    success: boolean;
-    message: string;
-    subscription: Subscription;
-    user: User;
-  }> {
-    return this.request('/api/subscription/checkout', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  }
-
-  async cancelSubscription(): Promise<{ success: boolean; message: string; subscription: Subscription }> {
-    return this.request('/api/subscription/cancel', {
-      method: 'POST',
-    });
-  }
-
   // AI Features
   async askAITutor(data: { topic: string; level?: string; userQuestion?: string }): Promise<{ explanation: string }> {
     return this.request('/api/ai/explain', {
@@ -353,16 +303,15 @@ class ApiClient {
       method: 'DELETE',
     });
   }
-
   async loginWithGoogle(credential: string): Promise<{ user: User; token: string }> {
-    const res = await this.request<{ user: User; token: string }>('/api/auth/google', {
-      method: 'POST',
-      body: JSON.stringify({ credential }),
-    });
+  const res = await this.request<{ user: User; token: string }>('/api/auth/google', {
+    method: 'POST',
+    body: JSON.stringify({ credential }),
+  });
 
-    this.setToken(res.token);
-    return res;
-  }
+  this.setToken(res.token);
+  return res;
+}
 
   // Notifications
   async getNotifications(): Promise<NotificationItem[]> {

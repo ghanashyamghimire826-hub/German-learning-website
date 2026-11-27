@@ -65,11 +65,6 @@ export const ProfileView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2">
               <h1 className="font-serif font-bold text-2xl text-stone-900">{user?.name}</h1>
-              {isPremium && (
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-amber-600" /> Premium
-                </span>
-              )}
             </div>
             <div className="text-xs text-stone-500 mt-0.5">{user?.email}</div>
           </div>
@@ -154,33 +149,6 @@ export const ProfileView: React.FC = () => {
               </button>
             </div>
           </form>
-        </div>
-
-        {/* Subscription Info Card */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-amber-500" />
-              <h3 className="font-serif font-bold text-lg text-stone-900">
-                Membership: {isPremium ? 'VielErfolg Premium' : 'Free Standard Plan'}
-              </h3>
-            </div>
-            <p className="text-xs text-stone-500 mt-1">
-              {isPremium
-                ? 'All B1–B2 lessons, mock exam simulators, and AI writing grading unlocked.'
-                : 'Unlock complete B1–B2 advanced lessons, official mock exam simulators, and AI tutor features.'}
-            </p>
-          </div>
-
-          {!isPremium && (
-            <button
-              onClick={openPaywallModal}
-              className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold text-xs rounded-xl shadow-xs shrink-0 flex items-center gap-2"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Upgrade to Premium</span>
-            </button>
-          )}
         </div>
 
         {/* Earned Badges Showcase */}

@@ -4,7 +4,6 @@ import { LearningProvider } from './context/LearningContext';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { AuthModal } from './components/modals/AuthModal';
-import { PricingModal } from './components/modals/PricingModal';
 
 // Views
 import { LandingView } from './components/views/LandingView';
@@ -132,8 +131,6 @@ function AppContent() {
           setCurrentView('dashboard');
         }}
       />
-
-      <PricingModal />
     </div>
   );
 }

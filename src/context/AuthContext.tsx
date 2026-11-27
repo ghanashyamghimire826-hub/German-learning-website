@@ -97,7 +97,7 @@ const loginWithGoogle = async (credential: string) => {
         isLoading,
         isAuthenticated: !!user,
         isAdmin: user?.role === 'admin',
-        isPremium: !!user?.isPremium || user?.role === 'admin',
+        isPremium: true, // The whole website is free: everything is unlocked for everyone.
         login,
         loginWithGoogle,
         register,

@@ -285,11 +285,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenA
                         <span className="px-2 py-0.5 text-[10px] font-bold rounded bg-amber-100 text-amber-800">
                           {user.level} Level
                         </span>
-                        {isPremium && (
-                          <span className="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-100 text-emerald-800 flex items-center gap-1">
-                            <Sparkles className="w-2.5 h-2.5" /> Premium
-                          </span>
-                        )}
                       </div>
                     </div>
 

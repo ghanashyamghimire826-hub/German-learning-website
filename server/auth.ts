@@ -81,15 +81,6 @@ export function adminOnly(req: AuthRequest, res: Response, next: NextFunction) {
   next();
 }
 
-export function premiumOnly(req: AuthRequest, res: Response, next: NextFunction) {
-  if (!req.user || (!req.user.isPremium && req.user.role !== 'admin')) {
-    return res.status(403).json({
-      error: 'Premium subscription required for B1/B2 content, full exams, and advanced AI features.',
-      requiresPremium: true,
-    });
-  }
-  next();
-}
 export async function verifyGoogleIdToken(idToken: string) {
   const clientId = process.env.VITE_GOOGLE_CLIENT_ID;
 

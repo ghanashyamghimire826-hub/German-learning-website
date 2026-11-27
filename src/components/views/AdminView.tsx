@@ -62,17 +62,6 @@ export const AdminView: React.FC = () => {
     loadAdminData();
   }, []);
 
-  const handleToggleUserPremium = async (u: User) => {
-    try {
-      const res = await api.updateAdminUserStatus(u.id, {
-        isPremium: !u.isPremium,
-      });
-      setUsersList((prev) => prev.map((item) => (item.id === u.id ? res.user : item)));
-    } catch (e) {
-      alert('Failed to update user status');
-    }
-  };
-
   const handleCreateQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -217,13 +206,6 @@ export const AdminView: React.FC = () => {
                 </div>
                 <div className="font-serif font-bold text-3xl text-stone-900">{stats.totalExamsCompleted}</div>
               </div>
-
-              <div className="bg-white p-6 rounded-3xl border border-stone-200 shadow-2xs space-y-1">
-                <div className="text-xs font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-500" /> Premium Members
-                </div>
-                <div className="font-serif font-bold text-3xl text-stone-900">{stats.premiumUsersCount}</div>
-              </div>
             </div>
           </div>
         )}
@@ -246,29 +228,12 @@ export const AdminView: React.FC = () => {
                       <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-stone-100 text-stone-700">
                         {u.role}
                       </span>
-                      {u.isPremium && (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 flex items-center gap-1">
-                          <Sparkles className="w-2.5 h-2.5" /> Premium
-                        </span>
-                      )}
                     </div>
                     <div className="text-xs text-stone-500 mt-0.5">
                       {u.email} • Level: {u.level} • {u.xp} XP • {u.streak}d streak
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => handleToggleUserPremium(u)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                        u.isPremium
-                          ? 'bg-stone-100 hover:bg-stone-200 text-stone-700'
-                          : 'bg-amber-400 hover:bg-amber-500 text-stone-950 shadow-xs'
-                      }`}
-                    >
-                      {u.isPremium ? 'Revoke Premium' : 'Grant Premium Access'}
-                    </button>
-                  </div>
                 </div>
               ))}
             </div>

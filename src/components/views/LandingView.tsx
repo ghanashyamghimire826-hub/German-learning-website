@@ -370,25 +370,25 @@ export const LandingView: React.FC<LandingViewProps> = ({ onNavigate, onOpenAuth
         </div>
       </section>
 
-      {/* Pricing Teaser Section */}
+      {/* Free For Everyone Section */}
       <section className="py-16 sm:py-24 bg-white border-b border-stone-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 text-amber-800 text-xs font-bold uppercase tracking-wider">
-            <Zap className="w-3.5 h-3.5 text-amber-600" /> Affordable Transparent Pricing
+            <Zap className="w-3.5 h-3.5 text-amber-600" /> 100% Free
           </div>
           <h2 className="font-serif font-bold text-3xl sm:text-4xl text-stone-900">
-            Invest in Your German Future
+            Learn German for free
           </h2>
           <p className="text-stone-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Free forever for core A1–A2 grammar & basic practice. Upgrade to VielErfolg Premium for full B1–B2 curriculum, mock exams, and AI writing evaluation.
+            All lessons, grammar, vocabulary, practice and exam preparation from A1 to B2 are free for every learner.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
-              onClick={openPaywallModal}
+              onClick={() => onNavigate('practice')}
               className="px-8 py-3.5 bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold text-sm rounded-xl shadow-lg shadow-amber-500/25 flex items-center gap-2 transition-all hover:scale-[1.02]"
             >
-              <span>View Plans (eSewa / Khalti / Cards)</span>
+              <span>Start Practising</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <button

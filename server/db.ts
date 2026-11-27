@@ -58,6 +58,28 @@ class DatabaseManager {
   constructor() {
     this.ensureDataDirectory();
     this.data = this.loadDatabase();
+    this.makeAllContentFree();
+  }
+
+  // The whole website is free: no lesson, question, grammar topic, note or word is locked.
+  private makeAllContentFree() {
+    const lists: any[][] = [
+      this.data.questions,
+      this.data.vocabulary,
+      this.data.grammarTopics,
+      this.data.lessons,
+      this.data.notes,
+    ];
+    let changed = false;
+    for (const list of lists) {
+      for (const item of list || []) {
+        if (item && item.isPremium) {
+          item.isPremium = false;
+          changed = true;
+        }
+      }
+    }
+    if (changed) this.saveDatabase();
   }
 
   private ensureDataDirectory() {
@@ -733,76 +755,7 @@ class DatabaseManager {
       };
     });
   }
-private ensurePaymentStore() {
-    if (!Array.isArray((this.data as any).paymentOrders)) {
-      (this.data as any).paymentOrders = [];
-    }
-  }
 
-  public savePaymentOrder(order: any) {
-    this.ensurePaymentStore();
-    (this.data as any).paymentOrders.push(order);
-    this.saveDatabase();
-    return order;
-  }
-
-  public getPaymentOrderById(orderId: string) {
-    this.ensurePaymentStore();
-    return (this.data as any).paymentOrders.find((o: any) => o.id === orderId);
-  }
-
-  public getPaymentOrderByProviderRef(refId: string) {
-    this.ensurePaymentStore();
-    return (this.data as any).paymentOrders.find((o: any) => o.providerRefId === refId);
-  }
-
-  public completePaymentAndActivate(
-    orderId: string,
-    providerRefId: string,
-    nextSub: any
-  ) {
-    this.ensurePaymentStore();
-    const order = (this.data as any).paymentOrders.find((o: any) => o.id === orderId);
-    if (order) {
-      order.status = 'PAID';
-      order.providerRefId = providerRefId;
-      order.verifiedAt = new Date().toISOString();
-    }
-
-    const user = this.data.users.find((u) => u.id === order?.userId);
-    if (user) {
-      user.isPremium = true;
-      (user as any).subscription = nextSub;
-      this.data.subscriptions.push({
-        id: sub_${Date.now()},
-        userId: user.id,
-        plan: nextSub.plan,
-        status: 'active',
-        amount: order?.amountNpr || 0,
-        currency: 'NPR',
-        paymentMethod: order?.provider || 'esewa',
-        transactionId: providerRefId,
-        startDate: nextSub.startedAt || new Date().toISOString(),
-        expiresAt: nextSub.expiresAt || new Date().toISOString(),
-        autoRenew: false,
-      } as any);
-    }
-
-    this.saveDatabase();
-    return { order, user };
-  }
-
-  public syncUserSubscriptionExpiry(userId: string) {
-    const user = this.data.users.find((u) => u.id === userId);
-    if (!user) return undefined;
-    const sub: any = (user as any).subscription;
-    if (sub && sub.expiresAt && new Date(sub.expiresAt).getTime() <= Date.now()) {
-      sub.status = 'expired';
-      user.isPremium = false;
-      this.saveDatabase();
-    }
-    return user;
-  }
   // ===================== SUBSCRIPTION & PAYMENT =====================
   public addSubscription(sub: Subscription) {
     this.data.subscriptions.push(sub);
@@ -829,21 +782,19 @@ private ensurePaymentStore() {
   public getAdminStats(): AdminDashboardStats {
     const totalUsers = this.data.users.length;
     const activeUsers = this.data.users.filter((u) => u.status === 'active').length;
-    const premiumUsers = this.data.users.filter((u) => u.isPremium).length;
-    const totalRevenueNpr = this.data.subscriptions.reduce((sum, s) => sum + (s.status === 'active' ? s.amount : 0), premiumUsers * 50);
     const questionsAnsweredTotal = this.data.userPracticeStats.reduce((sum, s) => sum + s.totalAnswered, 0);
 
     return {
       totalUsers,
       activeUsers,
-      premiumUsers,
-      totalRevenueNpr,
+      premiumUsers: 0,
+      totalRevenueNpr: 0,
       newUsersToday: 2,
       questionsAnsweredTotal,
       dailyActiveUsers: Math.max(1, Math.round(activeUsers * 0.65)),
-      conversionRate: totalUsers > 0 ? Math.round((premiumUsers / totalUsers) * 100) : 0,
+      conversionRate: 0,
       recentUsers: this.data.users.slice(-10).map(({ passwordHash, ...u }) => u),
-      recentPayments: this.data.subscriptions.slice(-10),
+      recentPayments: [],
     };
   }
 

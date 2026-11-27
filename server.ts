@@ -19,17 +19,6 @@ import {
   evaluateGermanWritingWithAI,
 } from './server/gemini';
 import { calculateNextSRSReview, SRSRating } from './src/lib/srs';
-import {
-  getPlanConfig,
-  signEsewaPayload,
-  verifyEsewaWithGateway,
-  createKhaltiCheckout,
-  verifyKhaltiWithGateway,
-  buildNextSubscription,
-  PaymentProvider,
-  PlanType,
-  UserSubscription,
-} from './server/payments';
 
 dotenv.config();
 
@@ -75,7 +64,7 @@ async function startServer() {
       goal: goal || 'pass_exam',
       dailyGoalMinutes: dailyGoalMinutes || 20,
       dailyGoalQuestions: dailyGoalQuestions || 15,
-      xp: 100,
+      xp: 100, // Welcome XP bonus
       streak: 1,
       lastActiveDate: new Date().toISOString().split('T')[0],
       isPremium: false,
@@ -117,10 +106,8 @@ async function startServer() {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
-    db.syncUserSubscriptionExpiry(user.id);
-    const refreshedUser = db.findUserById(user.id)!;
-    const token = generateToken(refreshedUser);
-    const { passwordHash: _, ...safeUser } = refreshedUser;
+    const token = generateToken(user);
+    const { passwordHash: _, ...safeUser } = user;
 
     res.json({
       message: 'Login successful',
@@ -128,8 +115,7 @@ async function startServer() {
       token,
     });
   });
-
-  app.post('/api/auth/google', async (req: Request, res: Response) => {
+app.post('/api/auth/google', async (req: Request, res: Response) => {
     const { credential } = req.body;
 
     if (!credential) {
@@ -177,7 +163,6 @@ async function startServer() {
         }
 
         db.updateUser(user.id, { googleId } as any);
-        db.syncUserSubscriptionExpiry(user.id);
         user = db.findUserById(user.id)!;
       }
 
@@ -196,7 +181,6 @@ async function startServer() {
   });
 
   app.get('/api/auth/me', authMiddleware, (req: AuthRequest, res: Response) => {
-    db.syncUserSubscriptionExpiry(req.user!.id);
     const user = db.findUserById(req.user!.id);
     if (!user) return res.status(404).json({ error: 'User not found' });
     const { passwordHash, ...safeUser } = user;
@@ -205,10 +189,10 @@ async function startServer() {
 
   app.put('/api/auth/profile', authMiddleware, (req: AuthRequest, res: Response) => {
     const updates = req.body;
+    // Don't allow direct role or premium escalation through profile endpoint
     delete updates.role;
     delete updates.isPremium;
     delete updates.passwordHash;
-    delete updates.subscription;
 
     const updated = db.updateUser(req.user!.id, updates);
     if (!updated) return res.status(404).json({ error: 'User not found' });
@@ -220,11 +204,13 @@ async function startServer() {
     const { email } = req.body;
     const user = db.findUserByEmail(email);
     if (!user) {
+      // Return 200 for security to prevent user enumeration
       return res.json({
         message: 'If an account with that email exists, a password reset link has been dispatched.',
       });
     }
 
+    // In a production server, dispatch email with reset token. Here we acknowledge safely.
     res.json({
       message: 'Password reset link and security PIN have been sent to your email address.',
       resetToken: 'rst_' + Buffer.from(email).toString('base64'),
@@ -345,6 +331,7 @@ async function startServer() {
 
     db.saveSRSItem(srsRecord);
 
+    // Give user XP for vocabulary review
     const user = db.findUserById(req.user!.id);
     if (user) {
       user.xp += rating === 'again' ? 2 : 5;
@@ -379,7 +366,7 @@ async function startServer() {
     const decorated = lessons.map((les) => ({
       ...les,
       isCompleted: completedIds.includes(les.id),
-      isLocked: les.isPremium && (!req.user || (!req.user.isPremium && req.user.role !== 'admin')),
+      isLocked: false, // The whole website is free.
     }));
 
     res.json(decorated);
@@ -389,7 +376,7 @@ async function startServer() {
     const lesson = db.getLessonBySlug(req.params.slug);
     if (!lesson) return res.status(404).json({ error: 'Lesson not found' });
 
-    const isLocked = lesson.isPremium && (!req.user || (!req.user.isPremium && req.user.role !== 'admin'));
+    const isLocked = false; // The whole website is free.
     res.json({ ...lesson, isLocked });
   });
 
@@ -439,14 +426,8 @@ async function startServer() {
     const { level, mode, totalQuestions } = req.body;
     const selectedLevel = level || 'A1';
 
-    if ((selectedLevel === 'B1' || selectedLevel === 'B2') && !req.user?.isPremium && req.user?.role !== 'admin') {
-      return res.status(403).json({
-        error: 'Official B1 and B2 full mock examinations require a VielErfolg Premium subscription.',
-        requiresPremium: true,
-      });
-    }
-
     const pool = db.getQuestions({ level: selectedLevel, limit: 100 }).questions;
+    // Shuffle pool
     const shuffled = [...pool].sort(() => Math.random() - 0.5);
     const examQuestions = shuffled.slice(0, totalQuestions || 20);
 
@@ -518,62 +499,118 @@ async function startServer() {
     res.json({ success });
   });
 
-  // ===================== SUBSCRIPTION & PAYMENT API (ESEWA & KHALTI) =====================
-  app.get('/api/subscription/plans', (_req: Request, res: Response) => {
-    const plans = [
-      {
-        id: 'plan_single_level_monthly',
-        planType: 'single',
-        name: 'Single Level Pass (1 Month)',
-        priceNpr: 30,
-        durationDays: 30,
-        selectableLevels: ['A1', 'A2', 'B1', 'B2'],
-        description: 'Full 30-day access to any one CEFR level of your choice (A1, A2, B1, or B2)',
-        features: [
-          'All lessons, grammar guides & study notes for your chosen level',
-          'Flashcard SRS practice & audio pronunciation',
-          'Level practice questions & mistake review',
-          'Valid for 30 days from activation',
-        ],
-        isPopular: false,
-      },
-      {
-        id: 'plan_all_levels_monthly',
-        planType: 'all',
-        name: 'Complete Access Pass (A1–B2, 1 Month)',
-        priceNpr: 100,
-        durationDays: 30,
-        selectableLevels: ['A1', 'A2', 'B1', 'B2'],
-        description: 'Full 30-day access to every German level from A1 through B2',
-        features: [
-          'Complete A1, A2, B1 & B2 lessons, grammar & study notes',
-          'Unlimited Flashcard SRS & exam simulator access',
-          'AI German grammar explanations & writing feedback',
-          'Best value for multi-level & exam preparation (30 days)',
-        ],
-        isPopular: true,
-      },
-    ];
+  // ===================== AI GERMAN PEDAGOGICAL ENGINE (GEMINI) =====================
+  app.post('/api/ai/explain', optionalAuthMiddleware, async (req: AuthRequest, res: Response) => {
+    const { topic, level, userQuestion } = req.body;
+    if (!topic) return res.status(400).json({ error: 'Grammar topic is required' });
 
-    res.json(plans);
+    try {
+      const explanation = await explainGrammarConceptWithAI(topic, level || 'A2', userQuestion);
+      res.json({ explanation });
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || 'Failed to generate explanation' });
+    }
   });
 
-  app.post('/api/payments/initiate', authMiddleware, async (req: AuthRequest, res: Response) => {
+  app.post('/api/ai/correct-sentence', optionalAuthMiddleware, async (req: AuthRequest, res: Response) => {
+    const { sentence, targetLevel } = req.body;
+    if (!sentence) return res.status(400).json({ error: 'German sentence is required' });
+
     try {
-      const { planType, selectedLevel, provider } = req.body as {
-        planType: PlanType;
-        selectedLevel?: string;
-        provider: PaymentProvider;
-      };
+      const result = await correctGermanSentenceWithAI(sentence, targetLevel || 'A2');
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || 'Failed to correct sentence' });
+    }
+  });
 
-      if (provider !== 'esewa' && provider !== 'khalti') {
-        return res.status(400).json({ error: 'Please choose eSewa or Khalti as your payment method.' });
-      }
+  app.post('/api/ai/evaluate-essay', authMiddleware, async (req: AuthRequest, res: Response) => {
+    const { taskPrompt, userEssay, cefrLevel } = req.body;
+    if (!taskPrompt || !userEssay) {
+      return res.status(400).json({ error: 'taskPrompt and userEssay are required' });
+    }
 
-      const plan = getPlanConfig(planType, selectedLevel);
-      const user = db.findUserById(req.user!.id);
-      if (!user) {
-        return res.status(404).json({ error: 'User account not found.' });
-      }
+    try {
+      const evaluation = await evaluateGermanWritingWithAI(taskPrompt, userEssay, cefrLevel || 'B1');
+      res.json(evaluation);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message || 'Failed to evaluate essay' });
+    }
+  });
 
-      const orderId = `VE_${Date.now()}_${Math.random().toString(
+  // ===================== ADMIN DASHBOARD API =====================
+  app.get('/api/admin/stats', authMiddleware, adminOnly, (_req: AuthRequest, res: Response) => {
+    const stats = db.getAdminStats();
+    res.json(stats);
+  });
+
+  app.get('/api/admin/users', authMiddleware, adminOnly, (_req: AuthRequest, res: Response) => {
+    const users = db.getAllUsers();
+    res.json(users);
+  });
+
+  app.put('/api/admin/users/:id/status', authMiddleware, adminOnly, (req: AuthRequest, res: Response) => {
+    const { status, isPremium, role } = req.body;
+    const updated = db.updateUser(req.params.id, { status, isPremium, role });
+    if (!updated) return res.status(404).json({ error: 'User not found' });
+    const { passwordHash, ...safeUser } = updated;
+    res.json({ user: safeUser, message: 'User updated by admin' });
+  });
+
+  app.post('/api/admin/questions', authMiddleware, adminOnly, (req: AuthRequest, res: Response) => {
+    const qData = req.body;
+    const newQuestion = {
+      ...qData,
+      id: `q_custom_${Date.now()}`,
+    };
+    db.addQuestion(newQuestion);
+    res.status(201).json(newQuestion);
+  });
+
+  app.put('/api/admin/questions/:id', authMiddleware, adminOnly, (req: AuthRequest, res: Response) => {
+    const updated = db.updateQuestion(req.params.id, req.body);
+    if (!updated) return res.status(404).json({ error: 'Question not found' });
+    res.json(updated);
+  });
+
+  app.delete('/api/admin/questions/:id', authMiddleware, adminOnly, (req: AuthRequest, res: Response) => {
+    const ok = db.deleteQuestion(req.params.id);
+    res.json({ success: ok });
+  });
+
+  app.post('/api/admin/vocabulary', authMiddleware, adminOnly, (req: AuthRequest, res: Response) => {
+    const vData = req.body;
+    const newItem = {
+      ...vData,
+      id: `v_custom_${Date.now()}`,
+    };
+    db.addVocabulary(newItem);
+    res.status(201).json(newItem);
+  });
+
+  app.delete('/api/admin/vocabulary/:id', authMiddleware, adminOnly, (req: AuthRequest, res: Response) => {
+    const ok = db.deleteVocabulary(req.params.id);
+    res.json({ success: ok });
+  });
+
+  // ===================== VITE SPA MIDDLEWARE =====================
+  if (process.env.NODE_ENV !== 'production') {
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+  } else {
+    const distPath = path.join(process.cwd(), 'dist');
+    app.use(express.static(distPath));
+    app.get('*', (_req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🇩🇪 VielErfolg Server successfully listening on http://localhost:${PORT}`);
+  });
+}
+
+startServer();

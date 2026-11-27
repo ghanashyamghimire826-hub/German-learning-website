@@ -253,7 +253,7 @@ export const SEED_LESSONS: Lesson[] = [
     difficulty: 'medium',
     estimatedMinutes: 20,
     xpReward: 100,
-    isPremium: true,
+    isPremium: false,
     summary: 'Express polite requests, advice, and hypothetical situations with hätte, wäre, and würde + Infinitiv.',
     sections: [
       {
@@ -278,7 +278,7 @@ export const SEED_LESSONS: Lesson[] = [
         correctAnswer: 'hätte',
         explanation: 'Unreal condition in the present requires Konjunktiv II: "ich hätte".',
         xp: 10,
-        isPremium: true,
+        isPremium: false,
       },
     ],
   },
@@ -293,7 +293,7 @@ export const SEED_LESSONS: Lesson[] = [
     difficulty: 'hard',
     estimatedMinutes: 22,
     xpReward: 100,
-    isPremium: true,
+    isPremium: false,
     summary: 'Learn how to form passive sentences in present, simple past, and perfect tenses using werden + Partizip II.',
     sections: [
       {
@@ -317,7 +317,7 @@ export const SEED_LESSONS: Lesson[] = [
         correctAnswer: 'wird',
         explanation: 'Passive present tense with singular subject "der Brief" uses "wird + Partizip II".',
         xp: 10,
-        isPremium: true,
+        isPremium: false,
       },
     ],
   },
@@ -334,7 +334,7 @@ export const SEED_LESSONS: Lesson[] = [
     difficulty: 'hard',
     estimatedMinutes: 25,
     xpReward: 100,
-    isPremium: true,
+    isPremium: false,
     summary: 'Master essential functional verb collocations required for Goethe B2, telc B2, and university academic writing.',
     sections: [
       {
@@ -359,7 +359,7 @@ export const SEED_LESSONS: Lesson[] = [
         correctAnswer: 'Sprache',
         explanation: '"zur Sprache bringen" is the fixed NVV meaning "to bring up for discussion".',
         xp: 10,
-        isPremium: true,
+        isPremium: false,
       },
     ],
   },
@@ -374,7 +374,7 @@ export const SEED_LESSONS: Lesson[] = [
     difficulty: 'hard',
     estimatedMinutes: 25,
     xpReward: 100,
-    isPremium: true,
+    isPremium: false,
     summary: 'Transform long relative clauses into concise academic adjective attributes before the noun.',
     sections: [
       {
@@ -398,7 +398,7 @@ export const SEED_LESSONS: Lesson[] = [
         correctAnswer: 'unterschriebene',
         explanation: 'Partizip II "unterschrieben" takes neuter nominative adjective ending "-e" after "das".',
         xp: 10,
-        isPremium: true,
+        isPremium: false,
       },
     ],
   },

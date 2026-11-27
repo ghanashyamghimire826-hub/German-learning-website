@@ -9,7 +9,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-stone-900 text-stone-300 border-t border-stone-800 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-stone-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-stone-800">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
@@ -97,26 +97,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </button>
               </li>
             </ul>
-          </div>
-
-          {/* Payment & Security */}
-          <div>
-            <h4 className="text-xs font-bold text-stone-200 uppercase tracking-wider mb-4">
-              Payment & Guarantee
-            </h4>
-            <p className="text-xs text-stone-400 leading-relaxed mb-3">
-              Accepted worldwide with instant digital activation:
-            </p>
-            <div className="flex flex-wrap gap-1.5 text-[11px] font-bold text-stone-300">
-              <span className="px-2 py-1 bg-stone-800 rounded border border-stone-700">eSewa</span>
-              <span className="px-2 py-1 bg-stone-800 rounded border border-stone-700">Khalti</span>
-              <span className="px-2 py-1 bg-stone-800 rounded border border-stone-700">Fonepay</span>
-              <span className="px-2 py-1 bg-stone-800 rounded border border-stone-700">Visa / MC</span>
-            </div>
-            <div className="mt-4 text-xs text-stone-400 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>100% Secure Checkout</span>
-            </div>
           </div>
         </div>
 
