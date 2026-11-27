@@ -322,34 +322,6 @@ useEffect(() => {
   </div>
 )}
 
-{/* Quick Demo Logins for effortless testing */}
-
-          {/* Quick Demo Logins for effortless testing */}
-          <div className="mt-5 pt-4 border-t border-stone-100">
-            <div className="text-[11px] text-center font-bold text-stone-600 mb-2 uppercase tracking-wider">
-              1-Click Demo Access
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleDemoLogin('user')}
-                disabled={loading}
-                className="py-1.5 px-2 bg-stone-100 hover:bg-stone-200 text-stone-800 text-[11px] font-bold rounded-lg transition-colors flex items-center justify-center gap-1"
-              >
-                <Sparkles className="w-3 h-3 text-amber-500" />
-                Student Demo
-              </button>
-              <button
-                type="button"
-                onClick={() => handleDemoLogin('admin')}
-                disabled={loading}
-                className="py-1.5 px-2 bg-purple-50 hover:bg-purple-100 text-purple-800 text-[11px] font-bold rounded-lg transition-colors flex items-center justify-center gap-1 border border-purple-200/50"
-              >
-                <Shield className="w-3 h-3 text-purple-600" />
-                Admin Demo
-              </button>
-            </div>
-          </div>
 
           {/* Switch mode footer */}
           <div className="mt-4 text-center text-xs text-stone-500">
