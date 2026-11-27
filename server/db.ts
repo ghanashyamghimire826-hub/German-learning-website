@@ -733,7 +733,76 @@ class DatabaseManager {
       };
     });
   }
+private ensurePaymentStore() {
+    if (!Array.isArray((this.data as any).paymentOrders)) {
+      (this.data as any).paymentOrders = [];
+    }
+  }
 
+  public savePaymentOrder(order: any) {
+    this.ensurePaymentStore();
+    (this.data as any).paymentOrders.push(order);
+    this.saveDatabase();
+    return order;
+  }
+
+  public getPaymentOrderById(orderId: string) {
+    this.ensurePaymentStore();
+    return (this.data as any).paymentOrders.find((o: any) => o.id === orderId);
+  }
+
+  public getPaymentOrderByProviderRef(refId: string) {
+    this.ensurePaymentStore();
+    return (this.data as any).paymentOrders.find((o: any) => o.providerRefId === refId);
+  }
+
+  public completePaymentAndActivate(
+    orderId: string,
+    providerRefId: string,
+    nextSub: any
+  ) {
+    this.ensurePaymentStore();
+    const order = (this.data as any).paymentOrders.find((o: any) => o.id === orderId);
+    if (order) {
+      order.status = 'PAID';
+      order.providerRefId = providerRefId;
+      order.verifiedAt = new Date().toISOString();
+    }
+
+    const user = this.data.users.find((u) => u.id === order?.userId);
+    if (user) {
+      user.isPremium = true;
+      (user as any).subscription = nextSub;
+      this.data.subscriptions.push({
+        id: sub_${Date.now()},
+        userId: user.id,
+        plan: nextSub.plan,
+        status: 'active',
+        amount: order?.amountNpr || 0,
+        currency: 'NPR',
+        paymentMethod: order?.provider || 'esewa',
+        transactionId: providerRefId,
+        startDate: nextSub.startedAt || new Date().toISOString(),
+        expiresAt: nextSub.expiresAt || new Date().toISOString(),
+        autoRenew: false,
+      } as any);
+    }
+
+    this.saveDatabase();
+    return { order, user };
+  }
+
+  public syncUserSubscriptionExpiry(userId: string) {
+    const user = this.data.users.find((u) => u.id === userId);
+    if (!user) return undefined;
+    const sub: any = (user as any).subscription;
+    if (sub && sub.expiresAt && new Date(sub.expiresAt).getTime() <= Date.now()) {
+      sub.status = 'expired';
+      user.isPremium = false;
+      this.saveDatabase();
+    }
+    return user;
+  }
   // ===================== SUBSCRIPTION & PAYMENT =====================
   public addSubscription(sub: Subscription) {
     this.data.subscriptions.push(sub);
