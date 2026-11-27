@@ -442,7 +442,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate, onOpenA
               }}
               className="w-full mt-3 py-2.5 rounded-xl text-xs font-bold bg-linear-to-r from-amber-400 to-amber-500 text-stone-950 flex items-center justify-center gap-1.5 shadow-md shadow-amber-500/20"
             >
-              <Sparkles className="w-4 h-4" /> Upgrade to DeutschMeister Premium
+              <Sparkles className="w-4 h-4" /> Upgrade to VielErfolg Premium
             </button>
           )}
         </div>
