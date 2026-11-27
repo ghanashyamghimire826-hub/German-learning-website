@@ -147,7 +147,7 @@ useEffect(() => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-stone-900 font-bold text-xs">
-                DM
+                VE
               </div>
               <span className="font-serif font-bold text-base">VielErfolg</span>
             </div>
